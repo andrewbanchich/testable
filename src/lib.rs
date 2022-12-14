@@ -9,7 +9,7 @@ macro_rules! make_testable {
 
         /// If we're not testing anything, just call the inner function.
         #[cfg(not(test))]
-        impl<const N: usize, Out, Func> Test<Out> for Testable<N, Func>
+        impl<const ID: usize, Out, Func> Test<Out> for Testable<ID, Func>
         where
             Func: FnOnce() -> Out,
         {
@@ -80,6 +80,6 @@ pub type AnyMap = HashMap<usize, Box<dyn Any + Send + Sync>>;
 /// Make any type testable.
 /// Accepts a function which wraps what you want to mock.
 /// The return value of that function must be able to be constructed by you.
-pub struct Testable<const N: usize, Func> {
+pub struct Testable<const ID: usize, Func> {
     pub func: Func,
 }
